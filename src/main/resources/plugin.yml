@@ -1,0 +1,4 @@
+name: LiteProfiles
+version: '${project.version}'
+main: me.darwj.liteprofiles.LiteProfiles
+api-version: '1.19'
