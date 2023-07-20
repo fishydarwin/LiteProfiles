@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -37,8 +38,12 @@ public class LiteProfileRepository {
     }
 
     public static void registerProfile(@NotNull UUID ownerUUID, @NotNull LiteProfile profile) {
-        storageConfig.set(ownerUUID + "." + profile.getUUID().toString(), profile.getProfileProperties());
-        System.out.println("AWA");
+        for (ProfileProperty property : profile.getProfileProperties()) {
+            storageConfig.set(ownerUUID + "." + profile.getUUID().toString() + "." + property.getName() + ".value",
+                    property.getValue());
+            storageConfig.set(ownerUUID + "." + profile.getUUID().toString() + "." + property.getName() + ".signature",
+                    property.getSignature());
+        }
         saveFile();
     }
 
@@ -56,8 +61,16 @@ public class LiteProfileRepository {
         UUID activeUUID =
                 UUID.fromString(storageConfig.getString(ownerUUID + ".active", ownerUUID.toString()));
 
-        // TODO: unchecked warning, see if it's ok
-        return new LiteProfile(activeUUID, (Set<ProfileProperty>) storageConfig.get(ownerUUID + "." + activeUUID));
+        Set<ProfileProperty> profileProperties = new HashSet<>();
+        for (String key : storageConfig.getConfigurationSection(ownerUUID + "." + activeUUID).getKeys(false)) {
+            String value =
+                    storageConfig.getString(ownerUUID + "." + activeUUID + "." + key + ".value");
+            String signature =
+                    storageConfig.getString(ownerUUID + "." + activeUUID + "." + key  + ".signature", null);
+            assert value != null;
+            profileProperties.add(new ProfileProperty(key, value, signature));
+        }
+        return new LiteProfile(activeUUID, profileProperties);
     }
 
 }
