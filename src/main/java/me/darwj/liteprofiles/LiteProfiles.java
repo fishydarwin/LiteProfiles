@@ -52,4 +52,5 @@ public final class LiteProfiles extends JavaPlugin {
     public void onDisable() {
         LiteProfileRepository.saveFile();
     }
+
 }

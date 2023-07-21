@@ -25,19 +25,4 @@ public class LiteProfile {
         return profileProperties;
     }
 
-    public void updateProfileProperty(@NotNull String name, @NotNull String newValue, @Nullable String newSignature) {
-        ProfileProperty toRemove = null;
-
-        for (ProfileProperty profileProperty : profileProperties) {
-            if (profileProperty.getName().equals(name)) {
-                toRemove = profileProperty;
-                break;
-            }
-        }
-        if (toRemove != null)
-            profileProperties.remove(toRemove);
-
-        profileProperties.add(new ProfileProperty(name, newValue, newSignature));
-    }
-
 }

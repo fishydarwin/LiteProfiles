@@ -1,8 +1,10 @@
 package me.darwj.liteprofiles.repository;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import me.darwj.liteprofiles.LiteProfiles;
 import me.darwj.liteprofiles.domain.LiteProfile;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -89,26 +91,18 @@ public class LiteProfileRepository {
         return new LiteProfile(activeUUID, profileProperties);
     }
 
-    public static void updateProfileProperty(@NotNull UUID ownerUUID,
-                                             @NotNull UUID slaveUUID,
-                                             @NotNull String name,
-                                             @NotNull String newValue,
-                                             @Nullable String newSignature) {
+    public static void syncMainProfile(@NotNull UUID ownerUUID, Set<ProfileProperty> profileProperties) {
+        unregisterProfile(ownerUUID, ownerUUID);
+        registerProfile(ownerUUID, new LiteProfile(ownerUUID, profileProperties));
+    }
+
+    public static void updateActiveProfileProperties(@NotNull UUID ownerUUID, Set<ProfileProperty> profileProperties) {
         UUID activeUUID =
                 UUID.fromString(storageConfig.getString(ownerUUID + ".active", ownerUUID.toString()));
+        if (activeUUID.equals(ownerUUID)) return;
 
-        if (activeUUID.equals(slaveUUID)) {
-            Player player = Bukkit.getPlayer(ownerUUID);
-            if (player != null) {
-                LiteProfile profile = getActiveProfile(ownerUUID);
-                profile.updateProfileProperty(name, newValue, newSignature);
-                player.getPlayerProfile().setProperties(profile.getProfileProperties());
-            }
-        }
-
-        storageConfig.set(ownerUUID + "." + slaveUUID + "." + name + ".value", newValue);
-        storageConfig.set(ownerUUID + "." + slaveUUID + "." + name + ".signature", newSignature);
-        saveFile();
+        unregisterProfile(ownerUUID, activeUUID);
+        registerProfile(ownerUUID, new LiteProfile(activeUUID, profileProperties));
     }
 
     public static int getProfileCount(@NotNull UUID ownerUUID) {
