@@ -2,3 +2,13 @@ name: LiteProfiles
 version: '${project.version}'
 main: me.darwj.liteprofiles.LiteProfiles
 api-version: '1.19'
+commands:
+  liteprofiles:
+    description: Admin command of LiteProfiles.
+    permission: liteprofiles.command.liteprofiles
+  profile:
+    description: Manage your profiles.
+    aliases:
+      - account
+      - pf
+    permission: liteprofiles.command.profile

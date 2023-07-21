@@ -1,10 +1,6 @@
 package me.darwj.liteprofiles.game.listeners;
 
-import com.destroystokyo.paper.event.profile.LookupProfileEvent;
-import com.destroystokyo.paper.event.profile.PreLookupProfileEvent;
 import com.destroystokyo.paper.profile.PlayerProfile;
-import com.destroystokyo.paper.profile.ProfileProperty;
-import me.darwj.liteprofiles.LiteProfiles;
 import me.darwj.liteprofiles.domain.LiteProfile;
 import me.darwj.liteprofiles.repository.LiteProfileRepository;
 import org.bukkit.Bukkit;
@@ -26,6 +22,7 @@ public class LiteProfilesListener implements Listener {
             PlayerProfile newPlayerProfile = Bukkit.createProfile(profile.getUUID(), event.getName());
             newPlayerProfile.setProperties(profile.getProfileProperties());
             event.setPlayerProfile(newPlayerProfile);
+            LiteProfileRepository.setActiveProfile(ownerUUID, profile.getUUID());
         } else {
             LiteProfile profile = new LiteProfile(ownerUUID, event.getPlayerProfile().getProperties());
             LiteProfileRepository.registerProfile(ownerUUID, profile);
