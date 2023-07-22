@@ -1,5 +1,5 @@
 name: LiteProfiles
-version: '${project.version}'
+version: '@version@'
 main: me.darwj.liteprofiles.LiteProfiles
 api-version: '1.19'
 commands:

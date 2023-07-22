@@ -1,9 +1,11 @@
 package me.darwj.liteprofiles;
 
+import me.darwj.liteprofiles.craftserver.GameProfileCacheService;
 import me.darwj.liteprofiles.game.commands.LiteProfilesCommand;
 import me.darwj.liteprofiles.game.commands.ProfileCommand;
 import me.darwj.liteprofiles.game.listeners.LiteProfilesListener;
 import me.darwj.liteprofiles.repository.LiteProfileRepository;
+import org.bukkit.craftbukkit.v1_19_R3.CraftServer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -46,6 +48,7 @@ public final class LiteProfiles extends JavaPlugin {
         Objects.requireNonNull(getCommand("profile")).setExecutor(profileCommand);
         Objects.requireNonNull(getCommand("profile")).setTabCompleter(profileCommand);
 
+        GameProfileCacheService gameProfileCacheService = new GameProfileCacheService((CraftServer) getServer());
     }
 
     @Override
