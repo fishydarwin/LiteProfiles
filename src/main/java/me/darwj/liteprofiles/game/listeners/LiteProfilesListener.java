@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -45,6 +46,11 @@ public class LiteProfilesListener implements Listener {
 
             LiteProfileRepository.setActiveProfile(ownerUUID, ownerUUID);
         }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerQuitEvent(@NotNull PlayerQuitEvent event) {
+        LiteProfiles.getGameProfileCacheService().update(event.getPlayer().getUniqueId(), event.getPlayer().getName());
     }
 
 }

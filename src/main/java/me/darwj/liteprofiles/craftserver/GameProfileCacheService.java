@@ -15,7 +15,7 @@ public final class GameProfileCacheService {
 		this.gameProfileCache = server.getHandle().getServer().getProfileCache();
 	}
 
-	public void Update(UUID uuid, String userName) {
+	public void update(UUID uuid, String userName) {
 		List<UUID> slaves = LiteProfileRepository.getAllSlaveUUIDs(uuid);
 		for (int i = 0; i < slaves.size(); i++)
 		{

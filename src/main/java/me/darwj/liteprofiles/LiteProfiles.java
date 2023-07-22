@@ -17,6 +17,9 @@ public final class LiteProfiles extends JavaPlugin {
     private static LiteProfiles instance;
     public static LiteProfiles getInstance() { return instance; }
 
+    private static GameProfileCacheService gameProfileCacheService;
+    public static GameProfileCacheService getGameProfileCacheService() { return gameProfileCacheService; }
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -48,7 +51,7 @@ public final class LiteProfiles extends JavaPlugin {
         Objects.requireNonNull(getCommand("profile")).setExecutor(profileCommand);
         Objects.requireNonNull(getCommand("profile")).setTabCompleter(profileCommand);
 
-        GameProfileCacheService gameProfileCacheService = new GameProfileCacheService((CraftServer) getServer());
+        gameProfileCacheService = new GameProfileCacheService((CraftServer) getServer());
     }
 
     @Override
