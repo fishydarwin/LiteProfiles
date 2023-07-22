@@ -19,8 +19,8 @@ Use this at your own risk - make FULL backups whenever possible.
 
 ### Building
 
-Run `mvn clean install` in the source directory.<br>
-The result of this can be found in the `target` folder.
+Run `gradle build` in the source directory.<br>
+The result of this can be found as `build/libs/LiteProfiles_x.x.x.jar`.
 
 ### Stability
 
@@ -32,9 +32,23 @@ It is very likely that you will receive warnings from plugins such as
 I cannot really blame it for thinking that, since this entire setup is pretty
 bizarre and unsupported.
 
-In this plugin, no use of reflection, NMS, or other systems should work. So,
-unless Minecraft makes a huge change to its systems, this plugin will continue
-working on PaperMC.
+NMS is used extremely lightly. So, unless Minecraft makes a huge change to 
+its systems, this plugin will continue working on PaperMC.
+
+### Offline Player Support
+
+The plugin attempts to correct `Server.getOfflinePlayer(String name)` 
+behaviour by changing the offline cache when a player logs off. This 
+ensures that, in general, attempting to find a player that is offline 
+by name will always return the master UUID (which is a player's original, 
+"normal" UUID).
+
+The behaviour described above, where an offline player will have a name
+such that it always points to their official UUID is what plugins assume
+to be normal behaviour, hence why this is maintained.
+
+This may not be 100% stable, but it seems to correctly identify most cases.<br>
+Thank you @martijn-heil for figuring out a solution to this.
 
 ### Caveats
 
