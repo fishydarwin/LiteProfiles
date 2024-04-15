@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class ProfileCommand implements CommandExecutor, TabCompleter {
 
-    private static int findProfileLimit(Player player) {
+    public static int findProfileLimit(Player player) {
         for (int i = 64; i > 1; i--) {
             if (player.hasPermission("liteprofiles.limit." + i)) {
                 return i;

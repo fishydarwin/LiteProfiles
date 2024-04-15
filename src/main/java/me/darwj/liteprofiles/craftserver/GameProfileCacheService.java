@@ -3,7 +3,7 @@ package me.darwj.liteprofiles.craftserver;
 import com.mojang.authlib.GameProfile;
 import me.darwj.liteprofiles.repository.LiteProfileRepository;
 import net.minecraft.server.players.GameProfileCache;
-import org.bukkit.craftbukkit.v1_19_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_20_R1.CraftServer;
 
 import java.util.List;
 import java.util.UUID;

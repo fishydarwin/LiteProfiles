@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "me.darwj"
-version = "1.0.0"
+version = "1.0.1"
 description = "LiteProfiles"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -25,6 +25,10 @@ repositories {
 
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
+    }
+
+    maven {
+        url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     }
 }
 
@@ -47,7 +51,8 @@ tasks {
 }
 
 dependencies {
-    paperDevBundle("1.19.4-R0.1-SNAPSHOT")
+    paperDevBundle("1.20.1-R0.1-SNAPSHOT")
+    compileOnly("me.clip:placeholderapi:2.11.5")
 }
 
 publishing {
