@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LiteProfiles.iml" filepath="$PROJECT_DIR$/LiteProfiles.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/LiteProfiles.main.iml" filepath="$PROJECT_DIR$/.idea/modules/LiteProfiles.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/LiteProfiles.test.iml" filepath="$PROJECT_DIR$/.idea/modules/LiteProfiles.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/me.darwj.LiteProfiles.main.iml" filepath="$PROJECT_DIR$/.idea/modules/me.darwj.LiteProfiles.main.iml" />

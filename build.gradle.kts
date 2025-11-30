@@ -5,13 +5,13 @@ plugins {
     `java-library`
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.papermc.paperweight.userdev") version "1.5.5"
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.19"
 }
 
 group = "me.darwj"
-version = "1.0.1"
+version = "1.0.2"
 description = "LiteProfiles"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenLocal()
@@ -51,8 +51,8 @@ tasks {
 }
 
 dependencies {
-    paperDevBundle("1.20.1-R0.1-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.5")
+    paperweight.paperDevBundle("1.21.10-R0.1-SNAPSHOT")
+    compileOnly("me.clip:placeholderapi:2.11.7")
 }
 
 publishing {
