@@ -1,5 +1,6 @@
 package me.darwj.liteprofiles.game.commands;
 
+import me.darwj.liteprofiles.LiteProfiles;
 import me.darwj.liteprofiles.domain.LiteProfile;
 import me.darwj.liteprofiles.repository.LiteProfileRepository;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -18,8 +19,12 @@ import java.util.UUID;
 public class ProfileCommand implements CommandExecutor, TabCompleter {
 
     public static int findProfileLimit(Player player) {
+        UUID uuid = LiteProfileRepository.findOwnerOfUUID(player.getUniqueId());
+        Player masterPlayer = uuid != null ?
+            LiteProfiles.getInstance().getServer().getPlayer(player.getUniqueId()) : player;
+        assert masterPlayer != null;
         for (int i = 64; i > 1; i--) {
-            if (player.hasPermission("liteprofiles.limit." + i)) {
+            if (masterPlayer.hasPermission("liteprofiles.limit." + i)) {
                 return i;
             }
         }
@@ -32,11 +37,10 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
                              @NotNull String label,
                              @NotNull String[] args) {
 
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             sender.sendRichMessage("<red>Only players can use this.");
             return true;
         }
-        Player player = (Player) sender;
 
         if (args.length == 0) {
             player.sendRichMessage("<red>Invalid use. Please try /" + label + " add/remove/use");
@@ -47,14 +51,14 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
 
             int limit = findProfileLimit(player);
             if (LiteProfileRepository.getProfileCount(player.getUniqueId()) >= limit) {
-                player.sendRichMessage("<red>You cannot create a new profile. You can only have "+limit+" profiles.");
+                player.sendRichMessage("<red>You cannot create a new profile. You can only have " + limit + " profiles.");
                 return true;
             }
 
             UUID ownerUUID = LiteProfileRepository.findOwnerOfUUID(player.getUniqueId());
             UUID randomUUID = UUID.randomUUID();
 
-            assert(ownerUUID) != null;
+            assert ownerUUID != null;
             LiteProfile currentProfile = LiteProfileRepository.getActiveProfile(ownerUUID);
             LiteProfile newProfile = new LiteProfile(randomUUID, currentProfile.getProfileProperties());
             LiteProfileRepository.registerProfile(ownerUUID, newProfile);
