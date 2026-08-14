@@ -11,6 +11,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender,
                              @NotNull Command command,
                              @NotNull String label,
-                             @NotNull String[] args) {
+                             @NotNull String @NonNull [] args) {
 
         if (!(sender instanceof Player player)) {
             sender.sendRichMessage("<red>Only players can use this.");
@@ -147,7 +148,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender,
                                                 @NotNull Command command,
                                                 @NotNull String label,
-                                                @NotNull String[] args) {
+                                                @NotNull String @NonNull [] args) {
         if (args.length <= 1) {
             List<String> list = new ArrayList<>();
             list.add("add");
@@ -158,8 +159,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
         else if (args.length == 2) {
             List<String> list = new ArrayList<>();
             if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("use")) {
-                if (sender instanceof Player) {
-                    Player player = (Player) sender;
+                if (sender instanceof Player player) {
                     UUID ownerUUID = LiteProfileRepository.findOwnerOfUUID(player.getUniqueId());
                     assert ownerUUID != null;
                     for (UUID uuid : LiteProfileRepository.getAllSlaveUUIDs(ownerUUID))

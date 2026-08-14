@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class LiteProfilesCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender,
                              @NotNull Command command,
                              @NotNull String label,
-                             @NotNull String[] args) {
+                             @NotNull String @NonNull [] args) {
 
         if (args.length == 0) {
             sender.sendRichMessage("<red>Invalid use. Please try /" + label + " version/reload");
@@ -28,16 +29,16 @@ public class LiteProfilesCommand implements CommandExecutor, TabCompleter {
 
         if (args[0].equalsIgnoreCase("version")) {
             sender.sendRichMessage("LiteProfiles version " +
-                            LiteProfiles.getInstance().getDescription().getVersion() + " by darwj1");
+                            LiteProfiles.getInstance().getDescription().getVersion() + " by bqkitcat");
             sender.sendRichMessage("https://www.github.com/fishydarwin/LiteProfiles");
         }
         else if (args[0].equalsIgnoreCase("reload")) {
             sender.sendRichMessage("<yellow>Started reload...");
 
-            // reload data.yml
             LiteProfileRepository.loadFile();
+            LiteProfiles.getProfileAndUsernameUpdateService().updateAll();
 
-            sender.sendRichMessage("<green>All files reloaded!");
+            sender.sendRichMessage("<green>All files reloaded and username service refreshed!");
         }
         else {
             sender.sendRichMessage("<red>Invalid use. Please try /" + label + " version/reload");
@@ -50,7 +51,7 @@ public class LiteProfilesCommand implements CommandExecutor, TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender,
                                                 @NotNull Command command,
                                                 @NotNull String label,
-                                                @NotNull String[] args) {
+                                                @NotNull String @NonNull [] args) {
         if (args.length <= 1) {
             List<String> list = new ArrayList<>();
             list.add("version");

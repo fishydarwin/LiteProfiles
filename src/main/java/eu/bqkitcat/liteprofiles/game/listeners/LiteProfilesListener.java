@@ -82,7 +82,7 @@ public class LiteProfilesListener implements Listener {
                     return;
                 }
                 List<UUID> slaveUUIDs = LiteProfileRepository.getAllSlaveUUIDs(masterUUID);
-                if (index > slaveUUIDs.size()) {
+                if (index >= slaveUUIDs.size()) {
                     return;
                 }
                 event.setUUID(slaveUUIDs.get(index));

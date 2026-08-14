@@ -71,7 +71,6 @@ public final class LiteProfiles extends JavaPlugin {
         Objects.requireNonNull(getCommand("profile")).setTabCompleter(profileCommand);
 
         profileAndUsernameUpdateService = new DefaultProfileAndUsernameUpdateService();
-        profileAndUsernameUpdateService.updateAll();
 
         if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             hasPlaceholderAPISupport = true;
@@ -87,6 +86,8 @@ public final class LiteProfiles extends JavaPlugin {
             hasEssentialsSupport = true;
             profileAndUsernameUpdateService.addAdditionalService(new EssentialsProfileAndUsernameUpdateService());
         }
+
+        profileAndUsernameUpdateService.updateAll();
 
     }
 
