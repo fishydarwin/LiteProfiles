@@ -5,13 +5,13 @@ plugins {
     `java-library`
     `maven-publish`
     id("com.gradleup.shadow") version "9.4.1"
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.19"
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.21"
 }
 
-group = "me.darwj"
-version = "1.0.2"
+group = "eu.bqkitcat"
+version = "1.0.3"
 description = "LiteProfiles"
-java.sourceCompatibility = JavaVersion.VERSION_21
+java.sourceCompatibility = JavaVersion.VERSION_25
 
 repositories {
     mavenLocal()
@@ -30,6 +30,14 @@ repositories {
     maven {
         url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     }
+
+    maven {
+        url = uri("https://maven.citizensnpcs.co/repo")
+    }
+
+    maven {
+        url = uri("https://repo.essentialsx.net/releases/")
+    }
 }
 
 tasks {
@@ -44,15 +52,13 @@ tasks {
         this.archiveVersion.set("")
         this.archiveAppendix.set("")
     }
-
-    assemble {
-        dependsOn(reobfJar)
-    }
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.10-R0.1-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.7")
+    paperweight.paperDevBundle("26.1.2.build.+")
+    compileOnly("me.clip:placeholderapi:2.11.7") { isTransitive = false }
+    compileOnly("com.denizenscript:denizen:1.3.3-SNAPSHOT") { isTransitive = false }
+    compileOnly("net.essentialsx:EssentialsX:2.21.2") { isTransitive = false }
 }
 
 publishing {

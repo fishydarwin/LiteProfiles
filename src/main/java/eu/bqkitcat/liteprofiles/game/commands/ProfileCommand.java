@@ -1,8 +1,8 @@
-package me.darwj.liteprofiles.game.commands;
+package eu.bqkitcat.liteprofiles.game.commands;
 
-import me.darwj.liteprofiles.LiteProfiles;
-import me.darwj.liteprofiles.domain.LiteProfile;
-import me.darwj.liteprofiles.repository.LiteProfileRepository;
+import eu.bqkitcat.liteprofiles.LiteProfiles;
+import eu.bqkitcat.liteprofiles.domain.LiteProfile;
+import eu.bqkitcat.liteprofiles.repository.LiteProfileRepository;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -88,7 +88,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
 
-            if (!LiteProfileRepository.isValidSlaveUUID(ownerUUID, slaveUUID)) {
+            if (LiteProfileRepository.isInvalidSlaveUUID(ownerUUID, slaveUUID)) {
                 player.sendRichMessage("<red>No profile with this UUID exists.");
                 return true;
             }
@@ -121,7 +121,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
             }
 
             assert ownerUUID != null;
-            if (!LiteProfileRepository.isValidSlaveUUID(ownerUUID, slaveUUID)) {
+            if (LiteProfileRepository.isInvalidSlaveUUID(ownerUUID, slaveUUID)) {
                 player.sendRichMessage("<red>No profile with this UUID exists.");
                 return true;
             }

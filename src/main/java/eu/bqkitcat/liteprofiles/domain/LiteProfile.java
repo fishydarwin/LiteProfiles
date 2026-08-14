@@ -1,4 +1,4 @@
-package me.darwj.liteprofiles.domain;
+package eu.bqkitcat.liteprofiles.domain;
 
 import com.destroystokyo.paper.profile.ProfileProperty;
 import org.jetbrains.annotations.NotNull;

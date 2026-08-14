@@ -1,15 +1,11 @@
-package me.darwj.liteprofiles.repository;
+package eu.bqkitcat.liteprofiles.repository;
 
-import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import me.darwj.liteprofiles.LiteProfiles;
-import me.darwj.liteprofiles.domain.LiteProfile;
-import org.bukkit.Bukkit;
+import eu.bqkitcat.liteprofiles.domain.LiteProfile;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,8 +46,8 @@ public class LiteProfileRepository {
         return storageConfig.isSet(ownerUUID.toString());
     }
 
-    public static boolean isValidSlaveUUID(@NotNull UUID ownerUUID, @NotNull UUID slaveUUID) {
-        return storageConfig.isSet(ownerUUID + "." + slaveUUID);
+    public static boolean isInvalidSlaveUUID(@NotNull UUID ownerUUID, @NotNull UUID slaveUUID) {
+        return !storageConfig.isSet(ownerUUID + "." + slaveUUID);
     }
 
     public static void registerProfile(@NotNull UUID ownerUUID, @NotNull LiteProfile profile) {
@@ -108,7 +104,7 @@ public class LiteProfileRepository {
     public static int getProfileCount(@NotNull UUID ownerUUID) {
         ConfigurationSection section = storageConfig.getConfigurationSection(ownerUUID.toString());
         if (section != null)
-            return section.getKeys(false).size();
+            return section.getKeys(false).size() - 1; // without "active: ..."
         return 0;
     }
 

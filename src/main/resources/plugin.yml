@@ -1,8 +1,11 @@
 name: LiteProfiles
 version: '@version@'
-main: me.darwj.liteprofiles.LiteProfiles
-api-version: '1.20'
-depend: [PlaceholderAPI]
+main: eu.bqkitcat.liteprofiles.LiteProfiles
+api-version: '26.1'
+soft-depend:
+  - PlaceholderAPI
+  - Denizen
+  - Essentials
 commands:
   liteprofiles:
     description: Admin command of LiteProfiles.

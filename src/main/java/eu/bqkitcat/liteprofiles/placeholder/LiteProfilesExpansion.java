@@ -1,8 +1,8 @@
-package me.darwj.liteprofiles.placeholder;
+package eu.bqkitcat.liteprofiles.placeholder;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.darwj.liteprofiles.game.commands.ProfileCommand;
-import me.darwj.liteprofiles.repository.LiteProfileRepository;
+import eu.bqkitcat.liteprofiles.game.commands.ProfileCommand;
+import eu.bqkitcat.liteprofiles.repository.LiteProfileRepository;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +14,7 @@ public class LiteProfilesExpansion extends PlaceholderExpansion {
     @Override
     @NotNull
     public String getAuthor() {
-        return "darwj";
+        return "bqkitcat";
     }
 
     @Override
